@@ -39,12 +39,12 @@ public class TestCase {
 			myObject2 = new s4.B193310.Frequencer();
 			myObject3 = new s4.B193310.Frequencer();
 
-			//setTarget check
+			//setTarget
 			myObject1.setTarget("H".getBytes());
 			myObject2.setTarget("".getBytes());
 			myObject3.setTarget("H".getBytes());
 
-			//setSpace check
+			//setSpace
 			myObject1.setSpace("Hi Ho Hi Ho".getBytes());
 			myObject2.setSpace("Hi Ho Hi Ho".getBytes());
 			myObject3.setSpace("".getBytes());
@@ -60,7 +60,7 @@ public class TestCase {
 			}
 
 			freq2 = myObject2.frequency();
-			System.out.println("Target is not set or Target length is zero");
+			System.out.println("Target length is zero");
 			if(-1 == freq2){
 				System.out.println("OK");
 			}else{
@@ -68,14 +68,15 @@ public class TestCase {
 			}
 
 			freq3 = myObject3.frequency();
-			System.out.println("Space is not set or Space length is zero");
+			System.out.println("Space length is zero");
 			if(0 == freq3){
 				System.out.println("OK");
 			}else{
 				System.out.println("WRONG");
 			}
 
-			/*Set Target and Space : OK
+			/*Frequencer check result
+			  Set Target and Space : OK
 			  Set Space and not set Target : WRONG
 			  Set Target and not set Space : OK
 			*/
@@ -85,46 +86,53 @@ public class TestCase {
 		}
 
 		try {
-			InformationEstimatorInterface myObject;
+			InformationEstimatorInterface myObject1, myObject2, myObject3;
 			double value;
 			System.out.println("checking s4.B193310.InformationEstimator");
-			myObject = new s4.B193310.InformationEstimator();
-			myObject.setSpace("3210321001230123".getBytes());
+			myObject1 = new s4.B193310.InformationEstimator();
+			myObject2 = new s4.B193310.InformationEstimator();
+			myObject3 = new s4.B193310.InformationEstimator();
 
-			myObject.setTarget("".getBytes());
-			value = myObject.estimation();
+			//setTarget
+			myObject1.setTarget("0".getBytes());
+			myObject2.setTarget("".getBytes());
+			myObject3.setTarget("0".getBytes());
+
+			//setSpace
+			myObject1.setSpace("3210321001230123".getBytes());
+			myObject2.setSpace("3210321001230123".getBytes());
+			myObject3.setSpace("".getBytes());
+
+			//estimation check
+			value = myObject1.estimation();
+			System.out.println("Return : I(0) = "+value);
+			if(value > 0.0){
+				System.out.println("OK");
+			}else{
+				System.out.println("WRONG");
+			}
+
+			value = myObject2.estimation();
+			System.out.println("Target length is zero");
 			if(value == 0.0){
-				System.out.println("No Target");
+				System.out.println("OK");
+			}else{
+				System.out.println("WRONG");
 			}
 
-			myObject.setTarget("0".getBytes());
-			value = myObject.estimation();
-			System.out.println(">0 "+value);
-
-			myObject.setTarget("01".getBytes());
-			value = myObject.estimation();
-			System.out.println(">01 "+value);
-
-			myObject.setTarget("0123".getBytes());
-			value = myObject.estimation();
-			System.out.println(">0123 "+value);
-
-			myObject.setTarget("00".getBytes());
-			value = myObject.estimation();
-			System.out.println(">00 "+value);
-
-			myObject.setTarget("5".getBytes());
-			value = myObject.estimation();
+			value = myObject3.estimation();			
+			System.out.println("Space length is zero");
 			if(value == Double.MAX_VALUE){
-				System.out.println("Not Set Space or Target Not Found");
+				System.out.println("OK");
+			}else{
+				System.out.println("WRONG");
 			}
 
-			myObject.setSpace("".getBytes());
-			myObject.setTarget("0".getBytes());
-			value = myObject.estimation();
-			if(value == Double.MAX_VALUE){
-				System.out.println("Not Set Space or Target Not Found");
-			}
+			/*Infomation Estimator check result
+			  Set Target and Space : OK
+			  Set Space and not set Target : WRONG
+			  Set Target and not set Space : OK
+			*/
 		}
 		catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
