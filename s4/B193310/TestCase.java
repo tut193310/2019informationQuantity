@@ -32,35 +32,54 @@ public interface InformationEstimatorInterface{
 public class TestCase {
     public static void main(String[] args) {
 		try {
-			FrequencerInterface myObject1;
-			FrequencerInterface myObject2;
-			int freq;
+			FrequencerInterface myObject1,myObject2,myObject3;
+			int freq1,freq2,freq3;
 			System.out.println("checking s4.B193310.Frequencer");
 			myObject1 = new s4.B193310.Frequencer();
-			myObject1.setSpace("Hi Ho Hi Ho".getBytes());
-			// Target Lenghts = 0
-			myObject1.setTarget("".getBytes());
-			if(myObject1.frequency() == -1){
-				System.out.println("Not Set Target");
-			}
-
 			myObject2 = new s4.B193310.Frequencer();
-			myObject2.setSpace("".getBytes());
-			myObject2.setTarget("H".getBytes());
-			//Space Lenghts = 0
-			if(myObject2.frequency()==0){
-				System.out.println("Not Set Space");
-			}
+			myObject3 = new s4.B193310.Frequencer();
 
+			//setTarget check
 			myObject1.setTarget("H".getBytes());
-			freq = myObject1.frequency();
-			System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+			myObject2.setTarget("".getBytes());
+			myObject3.setTarget("H".getBytes());
+
+			//setSpace check
+			myObject1.setSpace("Hi Ho Hi Ho".getBytes());
+			myObject2.setSpace("Hi Ho Hi Ho".getBytes());
+			myObject3.setSpace("".getBytes());
+
+			//frequency check
+			freq1 = myObject1.frequency();
+			System.out.println("\"H\" in \"Hi Ho Hi Ho\" appears "+freq1+" times. ");
 			//Count
-			if(4 == freq) { 
+			if(4 == freq1) { 
 				System.out.println("OK"); 
 			} else {
 				System.out.println("WRONG"); 
 			}
+
+			freq2 = myObject2.frequency();
+			System.out.println("Target is not set or Target length is zero");
+			if(-1 == freq2){
+				System.out.println("OK");
+			}else{
+				System.out.println("WRONG");
+			}
+
+			freq3 = myObject3.frequency();
+			System.out.println("Space is not set or Space length is zero");
+			if(0 == freq3){
+				System.out.println("OK");
+			}else{
+				System.out.println("WRONG");
+			}
+
+			/*Set Target and Space : OK
+			  Set Space and not set Target : WRONG
+			  Set Target and not set Space : OK
+			  ターゲットを設定しなかった(文字列が零)場合に正確に動作しなかった
+			*/
 		}
 		catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
