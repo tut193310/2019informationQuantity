@@ -78,7 +78,6 @@ public class TestCase {
 			/*Set Target and Space : OK
 			  Set Space and not set Target : WRONG
 			  Set Target and not set Space : OK
-			  ターゲットを設定しなかった(文字列が零)場合に正確に動作しなかった
 			*/
 		}
 		catch(Exception e) {
