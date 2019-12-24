@@ -38,7 +38,7 @@ public class TestCase {
 			System.out.println("checking s4.B193310.Frequencer");
 			myObject1 = new s4.B193310.Frequencer();
 			myObject1.setSpace("Hi Ho Hi Ho".getBytes());
-			//Target Lenghts = 0
+			// Target Lenghts = 0
 			myObject1.setTarget("".getBytes());
 			if(myObject1.frequency() == -1){
 				System.out.println("Not Set Target");
