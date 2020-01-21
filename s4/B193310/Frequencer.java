@@ -180,6 +180,7 @@ public class Frequencer implements FrequencerInterface{
         }
         
         for(int x=0; x<length; x++){
+            //System.out.println("mySpace:" + mySpace[x+i] + " myTarget:" + myTarget[x+j]);
             if(mySpace[x+i]-myTarget[x+j]>0) return 1;
             else if(mySpace[x+i]-myTarget[x+j]<0) return -1;
         }
@@ -286,11 +287,13 @@ public class Frequencer implements FrequencerInterface{
             */
 
             frequencerObject.setTarget("H".getBytes());
+
             //                                         
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
             //
 
             int result = frequencerObject.frequency();
+
             System.out.print("Freq = "+ result+" ");
             if(4 == result) { 
                 System.out.println("OK");
@@ -300,12 +303,45 @@ public class Frequencer implements FrequencerInterface{
 
             
             int a;
+            System.out.println("\nSuffix Compare");
+            a=frequencerObject.suffixCompare(4, 4);
+            System.out.println("Compare 4 4 :" + a);
+            a=frequencerObject.suffixCompare(4, 5);
+            System.out.println("Compare 4 5 :" + a);
+            a=frequencerObject.suffixCompare(5, 4);
+            System.out.println("Compare 5 4 :" + a);
+
+            System.out.println("Target Compare");
+            a=frequencerObject.targetCompare(3, 0, 1);
+            System.out.println("Compare \"H\" start 2 :" + a);
+            a=frequencerObject.targetCompare(7, 0, 1);
+            System.out.println("Compare \"H\" start 7 :" + a);
+            a=frequencerObject.targetCompare(9, 0, 1);
+            System.out.println("Compare \"H\" start 9 :" + a);
+
+            System.out.println("Check Target Start and End");
             a=frequencerObject.subByteStartIndex(0, 1);
             System.out.println("H start :" + a);
             a=frequencerObject.subByteEndIndex(0, 1);
             System.out.println("H end :" + a);
-            
 
+
+            frequencerObject.setTarget(" H".getBytes());
+            System.out.println("\nChange Target :  _H (_ is space)");
+
+            System.out.println("Target Compare");
+            a=frequencerObject.targetCompare(2, 0, 2);
+            System.out.println("Compare \"_H\" start 2 :" + a);
+            a=frequencerObject.targetCompare(4, 0, 2);
+            System.out.println("Compare \"_H\" start 4 :" + a);
+            a=frequencerObject.targetCompare(9, 0, 2);
+            System.out.println("Compare \"_H\" start 9 :" + a);
+
+            System.out.println("Check Target Start and End");
+            a=frequencerObject.subByteStartIndex(0, 2);
+            System.out.println("H start :" + a);
+            a=frequencerObject.subByteEndIndex(0, 2);
+            System.out.println("H end :" + a);            
         }
         catch(Exception e) {
             System.out.println("STOP");
