@@ -46,7 +46,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 		np = 1<<(myTarget.length-1);
 		// System.out.println("np="+np+" length="+myTarget.length);
 		double value = Double.MAX_VALUE; // value = mininimum of each "value1".
-
+/*
 		for(int p=0; p<np; p++) { // There are 2^(n-1) kinds of partitions.
 			// binary representation of p forms partition.
 			// for partition {"ab" "cde" "fg"}
@@ -67,7 +67,7 @@ public class InformationEstimator implements InformationEstimatorInterface{
 			// System.out.write(myTarget[end]);
 				end++;;
 				while(partition[end] == false) { 
-				// System.out.write(myTarget[end]);
+				 System.out.write(myTarget[end]);
 					end++;
 				}
 			// System.out.print("("+start+","+end+")");
@@ -80,7 +80,26 @@ public class InformationEstimator implements InformationEstimatorInterface{
 			// Get the minimal value in "value"
 			if(value1 < value) value = value1;
 		}
-		return value;
+*/
+		double [] info = new double[myTarget.length];
+		for(int i = 0; i < myTarget.length; i++){
+			//System.out.println("count : " + i);
+			for(int j = 0; j < i + 1; j++){
+				int start = j;
+				int end = i+1;
+				myFrequencer.setTarget(subBytes(myTarget, start, end));
+				value = iq(myFrequencer.frequency());
+				//System.out.println(value + " " + j);
+
+				if(j == 0){
+					info[i] = value;
+				}else{
+					info[i] = Math.min(info[i],info[j-1] + value);
+				}
+			}
+		}
+		return info[myTarget.length - 1];
+		//return value;
 	}
 
     public static void main(String[] args) {
