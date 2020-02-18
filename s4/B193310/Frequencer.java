@@ -68,6 +68,7 @@ public class Frequencer implements FrequencerInterface{
             //System.out.println(mySpace[i+k]);
             //System.out.println(mySpace[j+k]);
 
+            //これ外に出せるよ
             if((int)mySpace[i+k] < (int)mySpace[j+k]){
                 //System.out.println("-1");
                 return -1;
@@ -143,6 +144,9 @@ public class Frequencer implements FrequencerInterface{
         */
         int first = subByteStartIndex(start, end);
         int last1 = subByteEndIndex(start, end);
+
+        //System.out.println("first:"+first+" end:"+last1);
+
         return last1 - first;
     }
     // 変更してはいけないコードはここまで。
@@ -184,7 +188,7 @@ public class Frequencer implements FrequencerInterface{
             if(mySpace[x+i]-myTarget[x+j]>0){
                 return 1;
             }else if(mySpace[x+i]-myTarget[x+j]<0){
-                return -1;    
+                return -1;   
             } 
         }
         return 0;
@@ -216,13 +220,41 @@ public class Frequencer implements FrequencerInterface{
         // if target_start_end is "Ho ", it will return 6.                
         //                                                                          
         // ここにコードを記述せよ。                                                 
-        //                          
+        //
+        /*              
         for(int i=0; i<suffixArray.length;i++){
+            System.out.println(i + ":" + targetCompare(suffixArray[i], start, end));
             if(targetCompare(suffixArray[i], start, end) == 0){
                 return i;
             }
         }
-        return suffixArray.length; //このコードは変更しなければならない。          
+        */
+
+        int left = 0;
+        int right = suffixArray.length - 1;
+        while(right >= left){
+            int mid = (right + left) / 2;
+            //System.out.println("mid:" + mid +  " left:" + left + " right:" + right);
+            int result = targetCompare(suffixArray[mid], start, end);
+            if(mid-1 >= 0){
+                if(result == 0 && targetCompare(suffixArray[mid-1], start, end) != 0){
+                    //System.out.println("return:" + mid);
+                    return mid;
+                }
+            }else if(mid == 0){
+                if(result == 0){
+                    return 0;
+                }
+            }
+
+            //System.out.println(mid + ":" + targetCompare(suffixArray[mid], start, end));
+            if(result < 0){
+                left = mid+1;
+            }else if(result >= 0){
+                right = mid-1;
+            }
+        }
+        return suffixArray.length;   
     }
 
     private int subByteEndIndex(int start, int end) {
@@ -249,7 +281,9 @@ public class Frequencer implements FrequencerInterface{
         // if target_start_end is"i", it will return 9 for "Hi Ho Hi Ho".    
         //                                                                   
         //　ここにコードを記述せよ                                           
-        //     
+        //
+        
+        /*
         int p = subByteStartIndex(start, end);
         
         if(suffixArray.length < end - start){
@@ -262,8 +296,36 @@ public class Frequencer implements FrequencerInterface{
                 break;
             }
         }
+        //System.out.println("return : " + p);
         return p;
-        //return suffixArray.length; // この行は変更しなければならない、       
+        */
+        ///*
+        int left = 0;
+        int right = suffixArray.length - 1;
+        while(right >= left){
+            int mid = (right + left) / 2;
+            //System.out.println("mid:" + mid +  " left:" + left + " right:" + right);
+            int result = targetCompare(suffixArray[mid], start, end);
+            if(mid+1 <= suffixArray.length-1){
+                if(result == 0 && targetCompare(suffixArray[mid+1], start, end) == 1){
+                    //System.out.println("return:" + mid);
+                    return mid+1;
+                }
+            }else if(mid == suffixArray.length-1){
+                if(result == 0){
+                    return suffixArray.length;
+                }
+            }
+
+            //System.out.println(mid + ":" + targetCompare(suffixArray[mid], start, end));
+            if(result > 0){
+                right = mid-1;
+            }else if(result <= 0){
+                left = mid+1;
+            }
+        }
+        return suffixArray.length; // この行は変更しなければならない、
+        //*/      
     }
 
 
